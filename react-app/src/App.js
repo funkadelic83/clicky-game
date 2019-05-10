@@ -38,26 +38,40 @@ class App extends Component {
 
       //THEN SHUFFLE THE BERNIES
       const shuffledBernies = this.shuffle(bernies);
+          //UPDATE THE STATE WITH THE SHUFFLED BERNIES
       this.setState({ cards: shuffledBernies });
+
+
+      //UPDATE THE HIGH SCORE IF YOU ARE IN THE LEAD
+      if (this.state.score >= this.state.highscore) {
+        this.setState({ highscore: this.state.score + 1});
+      }
 
     } else {
 
-      //RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
+      //UPDATE THE HIGH SCORE IF APPLICABLE
       if (this.state.score > this.state.highscore) {
+        // alert("Whoah! A new high score!");
         this.setState({ highscore: this.state.score });
       }
+      
+       //RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
       this.setState({
         score: 0,
         chosenArray: [],
         displayMessage: "That was not the top 1% of guesses! Try again."
       });
 
+      //SHUFFLE THE BERNIES
       const shuffledBernies = this.shuffle(bernies);
+
+      //UPDATE THE STATE WITH THE SHUFFLED BERNIES
       this.setState({ cards: shuffledBernies });
     }
 
   }
 
+  //PRINTS WHAT THE USER SEES
   render() {
     return (
       <div>
@@ -69,7 +83,7 @@ class App extends Component {
           <div><h2>High Score: {this.state.highscore}</h2></div>
         </div>
 
-        {/* Map the bernies array. Each bernie in the array gets it's own card. */}
+        {/* Map the bernies array. Each individual bernie in the array gets it's own card. */}
         <div>{this.state.bernies.map(bernie => (
           <BernieCard
             handlePick={this.handlePick}

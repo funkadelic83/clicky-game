@@ -55,7 +55,6 @@ class App extends Component {
 
       this.shuffle(bernies);
     }
-
   }
 
   //PRINTS WHAT THE USER SEES

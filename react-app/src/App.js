@@ -1,35 +1,66 @@
 import React, {Component} from 'react';
 import bernies from "./bernies.json";
+import BernieCard from "./Components/BernieCard";
 
 class App extends Component {
   state = {
     bernies,
+    berniesArray: [],
     score: 0,
     highscore: 0,
     displayMessage: "Click a Bernie to Begin.",
     chosenArray: []
   };
 
-handlePick = () => {
-  if (this.state.chosenArray.includes(0) === false) {
+
+//   //THIS NEEDS HELP
+
+
+// // write a function to shuffle the bernies
+// function shuffle(berniesArray) {
+//   for (let i = berniesArray.length - 1; i > 0; i--) {
+//     let j = Math.floor(Math.random() * (i + 1));
+//     let temp = berniesArray[i];
+//     berniesArray[i] = berniesArray[j];
+//     berniesArray[j] = temp;
+//   }
+//     return berniesArray;
+// }
+
+// const result = shuffle(berniesArray);
+// console.log(JSON.stringify(result));
+
+
+
+
+
+handlePick = (id) => {
+  //IF THIS BERNIE ISNT IN THE CHOSEN ARRAY
+  if (this.state.chosenArray.includes(id) === false) {
   console.log("Click the Bern");
-  //if the current choice isn't in the chosenArray,
-  //add the Bernie id to the chosen array
-  this.setState({ chosenArray: this.state.chosenArray.concat([0])});
+  //THEN ADD IT TO THE CHOSEN ARRAY
+  this.setState({ 
+  chosenArray: this.state.chosenArray.concat(id)});
   console.log(this.state);
-  //increment the correct guesses by one this.setState:
+  //AND INCREMENT THE SCORE
   this.setState({ score: this.state.score + 1 });
+  //AND CHANGE THE MESSAGE
   this.setState({ displayMessage: "You Clicked the Bern!"});
-  //reshuffle the cards
+ 
+  //reshuffle the bernies
+
 } else {
-  console.log("You suck!");
+  //THEN RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
+  if (this.state.score > this.state.highscore) {
+    this.setState({ highscore: this.state.score});
+  }
+  this.setState({ score: 0 });
+  this.setState({ chosenArray: [] });
+  this.setState({ displayMessage: "That was not the top 1% of guesses! Try again."});
+
+  //reshuffle the bernies
 }
-  //if this Bernie is already in the Bernie Array,
-  //reshuffle the cards
-  //reset the number of correct guesses
-  //if the current guess score is higher than the streak score,
-  //set the value of hte streak score
-  //({ correct: this.state.correct = 0 })
+
 }
 
 render() {
@@ -38,15 +69,25 @@ render() {
       {/* SCOREBOARD */}
       <div>
       <div><h1>Click The Bern</h1></div>
-      <div>{this.state.displayMessage}</div>
-      <div>Current Score: {this.state.score}</div>
-      <div>High Score: {this.state.highscore}</div>
+      <div><h2>{this.state.displayMessage}</h2></div>
+      <div><h2>Current Score: {this.state.score}</h2></div>
+      <div><h2>High Score: {this.state.highscore}</h2></div>
       </div>
 
       {/* CARDS */}
-      <div class="card">
-      <img src={this.state.bernies[0].image} alt={this.state.bernies[0].id} onClick={this.handlePick} />
-      </div>
+      {/* Map an array of bernies */}
+      <div>{this.state.bernies.map(bernie => (
+      <BernieCard 
+        handlePick={this.handlePick}
+        id={bernie.id}
+        image={bernie.image}
+      />
+      )
+      )}
+</div>
+       {/* <div class="card">
+       <img src={this.state.bernies[0].image} alt={this.state.bernies[0].id} onClick={this.handlePick} />
+       </div> */}
 
       </div>
   )

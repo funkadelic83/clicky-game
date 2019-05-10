@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/funkadelic83/clicky-game/issues"
   },
-  "homepage": "https://github.com/funkadelic83/clicky-game#readme"
+  "homepage": "https://github.com/funkadelic83/clicky-game#readme",
+  "dependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }

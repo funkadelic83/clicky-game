@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import bernies from "./bernies.json";
 import BernieCard from "./Components/BernieCard";
 
+//SET THE DEFAULT STATE
 class App extends Component {
   state = {
     bernies,
@@ -11,85 +12,79 @@ class App extends Component {
     chosenArray: []
   };
 
-  // write a function to shuffle the bernies
-
-  shuffle = (berniesArray) => {
-    for (let i = berniesArray.length - 1; i > 0; i--) {
+  //THIS FUNCTION WILL SHUFFLE THE BERNIES
+  shuffle = (bernies) => {
+    for (let i = bernies.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      let temp = berniesArray[i];
-      berniesArray[i] = berniesArray[j];
-      berniesArray[j] = temp;
+      let temp = bernies[i];
+      bernies[i] = bernies[j];
+      bernies[j] = temp;
     }
-    return berniesArray;
+    return bernies;
   }
 
-// const result = shuffle(berniesArray);
-// console.log(JSON.stringify(result));
+  //WHEN A BERNIE IS CLICKED
+  handlePick = (id) => {
 
-handlePick = (id) => {
+    //IF THIS BERNIE ISNT IN THE CHOSENARRAY
+    if (this.state.chosenArray.includes(id) === false) {
 
-  //WHEN A BERNIE IS CLICKED, SHUFFLE THE BERNIES
-  const shuffledBernies = this.shuffle(bernies);
-  this.setState({cards: shuffledBernies});
+      //THEN ADD IT TO THE CHOSEN ARRAY, INCREMENT THE SCORE, CHANGE MESSAGE
+      this.setState({
+        chosenArray: this.state.chosenArray.concat(id),
+        score: this.state.score + 1,
+        displayMessage: "You Felt the Bern!"
+      });
 
+      //THEN SHUFFLE THE BERNIES
+      const shuffledBernies = this.shuffle(bernies);
+      this.setState({ cards: shuffledBernies });
 
-    //IF THIS BERNIE ISNT IN THE CHOSEN ARRAY
-  if (this.state.chosenArray.includes(id) === false) {
-    console.log("Click the Bern");
-    //THEN ADD IT TO THE CHOSEN ARRAY
-    this.setState({
-      chosenArray: this.state.chosenArray.concat(id)
-    });
-    console.log(this.state);
-    //AND INCREMENT THE SCORE
-    this.setState({ score: this.state.score + 1 });
-    //AND CHANGE THE MESSAGE
-    this.setState({ displayMessage: "You Clicked the Bern!" });
+    } else {
 
-  } else {
-    //THEN RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
-    if (this.state.score > this.state.highscore) {
-      this.setState({ highscore: this.state.score });
+      //RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
+      if (this.state.score > this.state.highscore) {
+        this.setState({ highscore: this.state.score });
+      }
+      this.setState({
+        score: 0,
+        chosenArray: [],
+        displayMessage: "That was not the top 1% of guesses! Try again."
+      });
+
+      const shuffledBernies = this.shuffle(bernies);
+      this.setState({ cards: shuffledBernies });
     }
-    this.setState({ score: 0 });
-    this.setState({ chosenArray: [] });
-    this.setState({ displayMessage: "That was not the top 1% of guesses! Try again." });
 
-    //reshuffle the bernies
   }
 
-}
-
-render() {
-  return (
-    <div>
-      {/* SCOREBOARD */}
+  render() {
+    return (
       <div>
-        <div><h1>Click The Bern</h1></div>
-        <div><h2>{this.state.displayMessage}</h2></div>
-        <div><h2>Current Score: {this.state.score}</h2></div>
-        <div><h2>High Score: {this.state.highscore}</h2></div>
-      </div>
+        {/* SCOREBOARD - DYNAMICALLY DISPLAYS SCORES*/}
+        <div>
+          <div><h1>Click The Bern</h1></div>
+          <div><h2>{this.state.displayMessage}</h2></div>
+          <div><h2>Current Score: {this.state.score}</h2></div>
+          <div><h2>High Score: {this.state.highscore}</h2></div>
+        </div>
 
-      {/* CARDS */}
-      {/* Map an array of bernies */}
-      <div>{this.state.bernies.map(bernie => (
-        <BernieCard
-          handlePick={this.handlePick}
-          id={bernie.id}
-          image={bernie.image}
-        />
-      )
-      )}
-      </div>
-      {/* <div class="card">
-       <img src={this.state.bernies[0].image} alt={this.state.bernies[0].id} onClick={this.handlePick} />
-       </div> */}
+        {/* Map the bernies array. Each bernie in the array gets it's own card. */}
+        <div>{this.state.bernies.map(bernie => (
+          <BernieCard
+            handlePick={this.handlePick}
+            id={bernie.id}
+            image={bernie.image}
+          />
+        )
+        )}
+        </div>
 
-    </div>
-  )
-}
-   
+      </div>
+    )
   }
 
+}
+
+//EXPORT App SO INDEX CAN RENDER IT TO THE DOM
 export default App;

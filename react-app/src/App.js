@@ -45,11 +45,6 @@ class App extends Component {
       }
 
     } else {
-
-      //UPDATE THE HIGH SCORE IF APPLICABLE
-      if (this.state.score > this.state.highscore) {
-        this.setState({ highscore: this.state.score });
-      }
       
        //RESET THE SCORE, RESET THE ARRAY, AND DISPLAY THE LOSING MESSAGE
       this.setState({

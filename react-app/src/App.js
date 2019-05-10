@@ -5,7 +5,6 @@ import BernieCard from "./Components/BernieCard";
 //SET THE DEFAULT STATE
 class App extends Component {
   state = {
-    bernies,
     score: 0,
     highscore: 0,
     displayMessage: "Click a Bernie to Begin.",
@@ -13,7 +12,7 @@ class App extends Component {
   };
 
   //THIS FUNCTION WILL SHUFFLE THE BERNIES
-  shuffle = (bernies) => {
+  shuffle = bernies => {
     for (let i = bernies.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       let temp = bernies[i];
@@ -24,7 +23,7 @@ class App extends Component {
   }
 
   //WHEN A BERNIE IS CLICKED
-  handlePick = (id) => {
+  handlePick = id => {
 
     //IF THIS BERNIE ISNT IN THE CHOSENARRAY
     if (this.state.chosenArray.includes(id) === false) {
@@ -70,7 +69,7 @@ class App extends Component {
         </div>
 
         {/* Map the bernies array. Each individual bernie in the array gets it's own card. */}
-        <div>{this.state.bernies.map(bernie => (
+        <div>{bernies.map(bernie => (
           <BernieCard
             handlePick={this.handlePick}
             id={bernie.id}

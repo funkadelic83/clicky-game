@@ -37,10 +37,7 @@ class App extends Component {
       });
 
       //THEN SHUFFLE THE BERNIES
-      const shuffledBernies = this.shuffle(bernies);
-          //UPDATE THE STATE WITH THE SHUFFLED BERNIES
-      this.setState({ cards: shuffledBernies });
-
+      this.shuffle(bernies);
 
       //UPDATE THE HIGH SCORE IF YOU ARE IN THE LEAD
       if (this.state.score >= this.state.highscore) {
@@ -51,7 +48,6 @@ class App extends Component {
 
       //UPDATE THE HIGH SCORE IF APPLICABLE
       if (this.state.score > this.state.highscore) {
-        // alert("Whoah! A new high score!");
         this.setState({ highscore: this.state.score });
       }
       
@@ -62,11 +58,7 @@ class App extends Component {
         displayMessage: "That was not the top 1% of guesses! Try again."
       });
 
-      //SHUFFLE THE BERNIES
-      const shuffledBernies = this.shuffle(bernies);
-
-      //UPDATE THE STATE WITH THE SHUFFLED BERNIES
-      this.setState({ cards: shuffledBernies });
+      this.shuffle(bernies);
     }
 
   }

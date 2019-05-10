@@ -1,0 +1,49 @@
+[{
+        "id": 1,
+        "image": "https://fair.org/wp-content/uploads/2019/05/Bernie-Speaks.jpg"
+    },
+    {
+        "id": 2,
+        "image": "../public/images/bern2.jpg"
+    },
+    {
+        "id": 3,
+        "image": "../public/images/bern3.jpg"
+    },
+    {
+        "id": 4,
+        "image": "../public/images/bern4.jpg"
+    },
+    {
+        "id": 5,
+        "image": "../public/images/bern5.jpg"
+    },
+    {
+        "id": 6,
+        "image": "../public/images/bern6.jpg"
+    },
+    {
+        "id": 7,
+        "image": "../public/images/bern7.jpg"
+    },
+    {
+        "id": 8,
+        "image": "../public/images/bern8.jpg"
+    },
+    {
+        "id": 9,
+        "image": "../public/images/bern9.jpg"
+    },
+    {
+        "id": 10,
+        "image": "../public/images/bern10.jpg"
+    },
+    {
+        "id": 11,
+        "image": "../public/images/bern11.jpg"
+    },
+    {
+        "id": 12,
+        "image": "../public/images/bern12.jpg"
+    }
+]
